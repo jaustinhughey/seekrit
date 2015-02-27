@@ -41,3 +41,19 @@ Just. Don't.
 It's still in the concept phase and definitely not at all production ready.
 It's just some dude screwing around with it right now, and that's not prod
 ready, yo. So don't.
+
+## Security Notes and Advice
+
+1. Run this on one machine and one machine only that's not accessible to the
+world at large, but only to your IP address (or a block of them, or on your
+VPN or whatever).
+2. You use this app to manage the keys and values. Then you can use redis-cli
+to fetch the keys and values with your configuration automation. (Note: If the
+community wants it and it sounds like a good idea, we might implement a simple
+HTTP API with support for GET only in the future. You still need to guard the
+app on the network level though).
+3. If you can reach the app from the global internet without whitelisting
+your IP, you're open to attack.
+4. Final security model is TBD but generally we'll store a crypted/salted
+password for a single admin user in redis itself, and compare against that upon
+login. Or possibly on each request. If API and such.
