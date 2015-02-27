@@ -6,4 +6,4 @@ use Rack::Session::Cookie, secret: (ENV['SECRET_KEY_BASE'] || SecureRandom.hex(2
 use Rack::Csrf, :raise => true
 use Rack::Flash, sweep: true
 
-run Seekrit
+run SeekritApp

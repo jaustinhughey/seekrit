@@ -1,4 +1,4 @@
-class Seekrit < Sinatra::Base
+class SeekritApp < Sinatra::Base
   helpers Sinatra::Param
   helpers do
     # TODO: Helpers here
@@ -8,6 +8,13 @@ class Seekrit < Sinatra::Base
     # Basic index
     erb :index
   end
+
+  get '/secrets' do
+    # Show all the secrets
+    @secrets = Secret.all
+  end
+
+  
 
   # TODO: Authentication
   # TODO: Show vars
