@@ -10,6 +10,7 @@ gem 'redis'
 gem 'rack_csrf'
 gem 'rack-flash3'
 gem 'sinatra-param'
+gem 'virtus'
 gem 'thor' # RIP Jim.
 
 group :development, :test do
