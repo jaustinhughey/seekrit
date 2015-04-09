@@ -3,8 +3,11 @@ class SeekritApp < Sinatra::Base
   helpers do
     # Is this request authenticated?
     def authenticated?
-      # TODO: Actual authenticate, likely through json web token
-      return true
+      key = env["HTTP_X_SEEKRIT_KEY"]
+      if key && ($redis.get("seekrit_api_key") == key)
+        return true
+      end
+      return false
     end
   end
 
@@ -19,7 +22,7 @@ class SeekritApp < Sinatra::Base
 
   get '/' do
     # Basic index
-    body Secret.all.to_json
+    body (Secret.all).to_json
   end
 
   post '/new' do
@@ -47,7 +50,6 @@ class SeekritApp < Sinatra::Base
     end
   end
 
-  # TODO: Authentication
   # TODO: Info page (redis IP, num keys, connect info etc.)
 
 end
