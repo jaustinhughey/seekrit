@@ -1,24 +1,30 @@
 class Secret
-  KEY_PREFIX = "_SEEKRIT_"
+  include Virtus.model
+  KEY_PREFIX = "#{RUNTIME_ENV}_SEEKRIT_"
+  SECRET_KEY = "#{KEY_PREFIX}_secrets"
 
-  attr_accessor :key_name
-  attr_accessor :key_value
+  attribute :name
+  attribute :value
 
   def self.all
-    # TODO: Put these redis get/set calls into a single method to be reused
-    # TODO: Iterate through the index of keys and fetch those.
-    # JSON.parse($redis.get("#{KEY_PREFIX}_secrets"))
+    $redis.hgetall(SECRET_KEY)
   end
 
-  def store
-    s = Secret.all # fetch the master key
+  def save
+    if valid?
+      return $redis.hmset(SECRET_KEY, name, value)
+    end
+    return false
   end
 
-  def self.allkeys
-    # Looks up the index key that we're using to keep track of all
-    # the given keys stored with seekrit.
-    # TODO: Ensure this key and a value actually exist and make sure that
-    # if JSON tries to parse it, it won't freak out
-    JSON.parse($redis.get("#{KEY_PREFIX}_index"))
+  def self.destroy(n)
+    return $redis.hdel(SECRET_KEY, n)
   end
+
+private
+
+  def valid?
+    name.length > 0 && value.length > 0
+  end
+
 end
