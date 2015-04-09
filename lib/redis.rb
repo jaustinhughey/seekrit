@@ -1,7 +1,17 @@
 require "rubygems"
 require "redis"
 
-$redis = Redis.new # Automatically connects to localhost; DO NOT want to run
-                   # this app on a non-redis host because it's not built
-                   # for large-scale use INTENTIONALLY.
-                   # See the application's readme.md for more info on security.
+# Figure out where Redis is.
+if ENV['REDIS_HOST'] && ENV['REDIS_HOST'].length > 0
+  REDIS_HOST = ENV['REDIS_HOST']
+else
+  REDIS_HOST = 'localhost'
+end
+
+if ENV['REDIS_PORT'] && ENV['REDIS_PORT'].length > 0
+  REDIS_PORT = ENV['REDIS_PORT']
+else
+  REDIS_PORT = '6379'
+end
+
+$redis = Redis.new(host: REDIS_HOST, port: REDIS_PORT)
