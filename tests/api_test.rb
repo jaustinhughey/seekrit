@@ -76,21 +76,3 @@ private
     {"X-Seekrit-Key" => API_KEY, "accept" => "text/json", "content-type" => "text/json"}
   end
 end
-
-
-
-
-# class MyTest < MiniTest::Unit::TestCase
-#
-#   include Rack::Test::Methods
-#
-#   def app
-#     Sinatra::Application
-#   end
-#
-#   def test_hello_world
-#     get '/'
-#     assert last_response.ok?
-#     assert_equal "Hello, World!", last_response.body
-#   end
-# end
