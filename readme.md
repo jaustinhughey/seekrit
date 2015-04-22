@@ -69,9 +69,14 @@ seekrit uses the following Redis keys:
 
 All responses will be JSON.
 
-+ GET / returns JSON with all keys and values.
-+ POST /new creates a new key if you specify the params secret and value.
-+ DELETE /remove/:name removes a given key from the main hash, if you specify the name parameter
++ GET /api/all returns JSON with all keys and values.
++ GET /api/:key returns the key and value as JSON (e.g. hash)
++ POST /api/set creates a new key if you specify the params secret and value.
++ DELETE /api/:name removes a given key from the main hash, if you specify the name parameter
+
+# PROGRAMMERS NOTE: Redo pieces of these docs to match new routes, /api/ namespace
+# Redo curl examples too
+# Point out tests
 
 Examples with curl:
 
