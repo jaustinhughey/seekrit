@@ -69,10 +69,4 @@ class ApiTest < MiniTest::Unit::TestCase
     # TODO: Check that the key exists in the hash
     # TODO: Check that the value is correct for that key
   end
-
-private
-
-  def headers
-    {"X-Seekrit-Key" => API_KEY, "accept" => "text/json", "content-type" => "text/json"}
-  end
 end
