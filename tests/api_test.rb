@@ -38,7 +38,7 @@ class ApiTest < MiniTest::Unit::TestCase
     end
 
     tdata.each do |k, v|
-      post '/api/new', {secret: k, value: v.to_s}
+      post '/api/new', {secret: k, value: v}
     end
 
     # Do the get request now and it should have the same stuff
@@ -51,14 +51,13 @@ class ApiTest < MiniTest::Unit::TestCase
   end
 
   def test_set_new_seekrit
-    # POST /
+    # POST /api/new
     # Should set a new key
-    #
-    # Fetch the main key from Redis directly
-    # TODO
-    #
-    # Ensure that the key just set is in there with the correct value
-    # TODO
+    k = SecureRandom.uuid
+    v = SecureRandom.uuid
+
+    post '/api/new', { secret: k, value: v }
+    assert_equal ({'status' => 'OK'}), JSON.parse(last_response.body)
   end
 
   def test_get_single_key_val
