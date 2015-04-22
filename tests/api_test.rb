@@ -46,7 +46,7 @@ class ApiTest < MiniTest::Unit::TestCase
     get '/api/get/all'
     res = JSON.parse(last_response.body)
     tdata.each do |k, v|
-      assert_equal res[k.to_s], v
+      assert_equal res[k], v
     end
   end
 
