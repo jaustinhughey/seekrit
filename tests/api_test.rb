@@ -34,11 +34,11 @@ class ApiTest < MiniTest::Unit::TestCase
     # Start by creating some keys/values
     tdata = {}
     3.times do
-      tdata[SecureRandom.uuid.to_sym] = SecureRandom.uuid
+      tdata[SecureRandom.uuid] = SecureRandom.uuid
     end
 
     tdata.each do |k, v|
-      post '/api/new', {secret: k.to_s, value: v.to_s}
+      post '/api/new', {secret: k, value: v.to_s}
     end
 
     # Do the get request now and it should have the same stuff
