@@ -6,6 +6,7 @@ group :application_servers do
 end
 
 gem 'sinatra'
+gem 'sinatra-contrib'
 gem 'redis'
 gem 'rack_csrf'
 gem 'rack-flash3'
