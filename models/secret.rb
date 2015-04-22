@@ -1,6 +1,6 @@
 class Secret
   include Virtus.model
-  KEY_PREFIX = "#{RUNTIME_ENV}_SEEKRIT_"
+  KEY_PREFIX = "#{RUNTIME_ENV}_SEEKRIT"
   SECRET_KEY = "#{KEY_PREFIX}_secrets"
 
   attribute :name
@@ -8,6 +8,10 @@ class Secret
 
   def self.all
     $redis.hgetall(SECRET_KEY)
+  end
+
+  def self.get(key)
+    # TODO: $redis.something(SECRET_KEY)
   end
 
   def save
