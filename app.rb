@@ -23,14 +23,24 @@ class SeekritApp < Sinatra::Base
     end
 
     get '/' do
+      # Just return an empty hash to allow some sanity
+      body ({}).to_json
+    end
+
+    get '/get/all' do
       # Basic index
       body (Secret.all).to_json
+    end
+
+    get '/:key' do
+      # TODO: Retrieve specific key from redis hash
     end
 
     post '/new' do
       # Create a new key/value combo
       # Takes POST data with a secret name and a value for it
       # For example: github_api_key, abc123xyz...
+
       if params[:secret] && params[:value]
         s = Secret.new(name: params[:secret], value: params[:value])
         if s.save
@@ -43,7 +53,7 @@ class SeekritApp < Sinatra::Base
       end
     end
 
-    delete '/remove/:name' do
+    delete '/:name' do
       # Remove the specified key
       if Secret.destroy(params[:name])
         body ({status: "OK"}).to_json
