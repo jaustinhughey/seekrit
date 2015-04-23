@@ -63,10 +63,17 @@ class ApiTest < MiniTest::Unit::TestCase
   def test_get_single_key_val
     # GET /keyname
     # Should return JSON like: { "key": "value" }
-    # TODO: Inject new key into redis directly
-    # TODO: GET /keyname
-    # TODO: Parse response into hash from JSON
-    # TODO: Check that the key exists in the hash
-    # TODO: Check that the value is correct for that key
+    # Create new key/value with API
+    k = SecureRandom.uuid
+    v = SecureRandom.uuid
+    post '/api/new', {secret: k, value: v}
+
+    # Perform GET request
+    get "/api/get/#{k}"
+    assert_equal ({k => v}), (JSON.parse(last_response.body))
+  end
+
+  def test_delete_key
+    # TODO
   end
 end

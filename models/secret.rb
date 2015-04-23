@@ -11,7 +11,7 @@ class Secret
   end
 
   def self.get(key)
-    # TODO: $redis.something(SECRET_KEY)
+    $redis.hmget(SECRET_KEY, key).first
   end
 
   def save

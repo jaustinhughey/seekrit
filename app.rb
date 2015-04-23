@@ -32,8 +32,9 @@ class SeekritApp < Sinatra::Base
       body (Secret.all).to_json
     end
 
-    get '/:key' do
-      # TODO: Retrieve specific key from redis hash
+    get '/get/:key' do
+      # Retrieve specific key from redis hash
+      body ({params[:key].to_sym => Secret.get(params[:key])}).to_json
     end
 
     post '/new' do
