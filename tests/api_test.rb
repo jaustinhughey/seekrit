@@ -74,6 +74,18 @@ class ApiTest < MiniTest::Unit::TestCase
   end
 
   def test_delete_key
-    # TODO
+    # Create a bogus key with a bogus value to test against
+    k = SecureRandom.uuid
+    v = SecureRandom.uuid
+    post '/api/new', {secret: k, value: v}
+
+    # Delete said key
+    delete "/api/destroy/#{k}"
+    assert_equal ({"status" => "OK"}), (JSON.parse(last_response.body))
+
+    # Test that it's ACTUALLY gone
+    get "/api/get/#{k}"
+    assert_equal ({k => nil}), (JSON.parse(last_response.body))
+
   end
 end

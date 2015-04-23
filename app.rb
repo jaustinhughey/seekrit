@@ -54,7 +54,7 @@ class SeekritApp < Sinatra::Base
       end
     end
 
-    delete '/:name' do
+    delete '/destroy/:name' do
       # Remove the specified key
       if Secret.destroy(params[:name])
         body ({status: "OK"}).to_json
